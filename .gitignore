@@ -1,0 +1,7 @@
+.DS_Store
+*.ini
+*.exe
+
+node_modules
+bin
+

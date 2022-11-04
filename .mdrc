@@ -1,0 +1,6 @@
+{
+  "routes": {
+    "/css/atom.css": "/css/atom.css",
+    "/css/style.css": "/css/style.css"
+  }
+}

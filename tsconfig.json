@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016", 
+    "module": "ES2015", 
+    "removeComments": true, 
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, 
+    // "strict": true, 
+    // "noUnusedLocals": true, 
+    // "noUnusedParameters": true, 
+    // "noFallthroughCasesInSwitch": true, 
+    // "skipLibCheck": true
+  }
+}

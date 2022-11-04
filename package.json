@@ -1,0 +1,35 @@
+{
+  "name": "@titor-z/markdown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "md": "./bin/bin.js"
+  },
+  "scripts": {
+    "start": "esno src/mod.ts",
+    ":dev": "esno watch src/cli.ts *",
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@rollup/plugin-babel": "^6.0.2",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-json": "^5.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@types/koa": "^2.13.5",
+    "@types/koa-router": "^7.4.4",
+    "@types/markdown-it": "^12.2.3",
+    "@types/node": "^18.11.9",
+    "babel-preset-env": "^1.7.0",
+    "markdown-it": "^13.0.1",
+    "rollup": "^3.2.5",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "highlight.js": "^11.6.0",
+    "koa": "^2.13.4",
+    "koa-router": "^12.0.0"
+  }
+}
