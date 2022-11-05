@@ -1,10 +1,14 @@
 # Project
 tsconfig.json
+typedoc.json
 rollup.config.js
 test/
 src/
 docs/
 documents/
+node_modules/
+.mdrc
+.prettierrc
 
 # Editor
 .fleet/
