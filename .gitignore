@@ -1,10 +1,14 @@
+# Project
+node_modules/
+bin/
+
+# Editor
+.fleet/
+.vs/
+.code/
+.idea/
+
+# System
 .DS_Store
 *.ini
 *.exe
-
-node_modules
-bin
-
-.vs
-.code
-.fleet
