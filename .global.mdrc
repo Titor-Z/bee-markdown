@@ -1,0 +1,10 @@
+{
+  "defaultCss": {
+    "/style.css": "/css/style.css",
+    "/editor.css": "/css/atom.css"
+  },
+  "defaultEntry": "README.md",
+  "defaultPort": 2222,
+  "configFile": ".mdrc",
+  "defaultDocs": "docs"
+}
