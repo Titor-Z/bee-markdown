@@ -4,6 +4,7 @@ rollup.config.js
 test/
 src/
 docs/
+documents/
 
 # Editor
 .fleet/
