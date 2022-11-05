@@ -1,0 +1,18 @@
+# Project
+tsconfig.json
+rollup.config.js
+test/
+src/
+docs/
+
+# Editor
+.fleet/
+.vs/
+.code/
+.idea/
+
+# System
+*.ini
+*.exe
+.DS_Store
+*.log
