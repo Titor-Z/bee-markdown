@@ -7,7 +7,7 @@ const json = require("@rollup/plugin-json")
 
 
 exports.default = {
-  input: "src/cli.ts",
+  input: "src/command.ts",
   output: {
     format: "cjs",
     file: "bin/bin.js",
