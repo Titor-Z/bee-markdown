@@ -1,6 +1,5 @@
 //@ts-ignore
 import hljs from "highlight.js";
-import { readFileSync } from "fs";
 import Config from "./config";
 
 export default class Markdown extends Config {

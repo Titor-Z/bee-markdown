@@ -1,4 +1,4 @@
-import yargs, { Arguments, Argv } from "yargs";
+import yargs, { Argv } from "yargs";
 import { hideBin } from "yargs/helpers";
 import Config from "./config";
 import Server from "./server";
@@ -26,6 +26,9 @@ export default class Command extends Config {
           new Server().listen(argv.port);
         }
       )
+      .command("init", "初始化你的项目", () => {
+        return "初始化";
+      })
       .parse();
   }
 }

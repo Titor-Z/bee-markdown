@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "fs";
-import { join, resolve } from "path";
+import { join } from "path/posix";
 import { cwd } from "process";
 
 export type UserConfigType = {
@@ -18,21 +18,24 @@ export type GlobalConfigType = {
 };
 
 export default class Config {
-  protected BeeRoot: string;
+  protected BeeRoot: string = join(__dirname, '../');
   protected workspace: string;
-  private globalFileName: string = ".global.mdrc";
+  private globalFileName: string = "default.mdrc";
   private sourceDirname: string = "/src";
   protected globalCfg: GlobalConfigType;
   protected userCfg: UserConfigType;
 
   constructor() {
     this.workspace = join(cwd());
-    this.BeeRoot = join(
-      resolve(__dirname).substring(
-        0,
-        resolve(__dirname).lastIndexOf(this.sourceDirname)
-      )
-    );
+    // this.BeeRoot = join(
+    //   resolve(__dirname).substring(
+    //     0,
+    //     resolve(__dirname).lastIndexOf(this.sourceDirname)
+    //   )
+    // );
+
+    // this.BeeRoot = join(__dirname.substring(0, __dirname.lastIndexOf(this.sourceDirname)));
+
 
     this.globalCfg = this.getGlobalConfig();
     this.userCfg = this.getUserConfig();
@@ -45,8 +48,7 @@ export default class Config {
    */
   getGlobalConfig(): GlobalConfigType {
     let configContent = readFileSync(join(this.BeeRoot, this.globalFileName));
-
-    return JSON.parse(configContent.toString());
+    return JSON.parse(configContent.toString()) ?? {};
   }
 
 
