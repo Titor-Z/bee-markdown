@@ -1,45 +1,23 @@
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/atom.css">
+<link rel="stylesheet" href="http://localhost:80/swiss.css">
 
-- Hello [hello]
-- Test [test]
 
-## Useage
+# BeeMarkdown
+简单轻巧的Markdown文档在线预览工具.
 
-```Typescript
-const databaseOption = {
-  database: jsonFile
-}
+### Useage
 
-const db = new BeeDatabase();
-
-db.table('user').insert({
-  name: 'mike',
-  age: 20,
-  sex: 1
-})
-db.table('user').select(where)
-db.table('user').find(where)
-db.table('user').update(where)
-db.table('user').delete(where)
+启动md服务
+``` bash
+md start [port]端口号,默认2222
 ```
 
-<hr>
-
-```Typescript
-class User extend BeeDatabase {
-  constructior(){
-    super();
-    this.table = 'user'
-  }
-
-  insert() {
-
-  }
-}
+初始化md
+``` bash
+md init
 ```
 
-<hr>
-
-[hello]: docs/hello.md
-[test]: docs/test.md
+其它命令
+``` bash
+md --help     显示帮助信息
+md --version  显示md版本号
+```
