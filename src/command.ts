@@ -16,13 +16,13 @@ export default class Command extends Config {
       .command(
         "start [port]",
         "Start the BeeMarkdown Server",
-        (yargs) => {
+        yargs => {
           return yargs.positional("port", {
             describe: "Set BeeMarkdown Server Port...",
             default: this.port(),
           });
         },
-        (argv) => {
+        argv => {
           new Server().listen(argv.port);
         }
       )

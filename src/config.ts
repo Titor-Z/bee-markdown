@@ -18,7 +18,7 @@ export type GlobalConfigType = {
 };
 
 export default class Config {
-  protected BeeRoot: string = join(__dirname, '../');
+  protected BeeRoot: string = join(__dirname, "../");
   protected workspace: string;
   private globalFileName: string = "default.mdrc";
   private sourceDirname: string = "/src";
@@ -36,11 +36,9 @@ export default class Config {
 
     // this.BeeRoot = join(__dirname.substring(0, __dirname.lastIndexOf(this.sourceDirname)));
 
-
     this.globalCfg = this.getGlobalConfig();
     this.userCfg = this.getUserConfig();
   }
-
 
   /**
    * 获取 BeeMarkdown全局配置
@@ -50,7 +48,6 @@ export default class Config {
     let configContent = readFileSync(join(this.BeeRoot, this.globalFileName));
     return JSON.parse(configContent.toString()) ?? {};
   }
-
 
   /**
    * 获取 用户项目中的自定义配置

@@ -29,7 +29,6 @@ export default class Server extends Markdown {
     this.main();
   }
 
-
   /* ==================================================
    * 一. 检测
    * ================================================== */
@@ -47,14 +46,13 @@ export default class Server extends Markdown {
     return readdirSync(docsPath);
   }
 
-
   /* ==================================================
    * 二. 系统映射挂载
    * ================================================== */
 
   // 主入口映射
   private main() {
-    this.router.get("/", (ctx) => {
+    this.router.get("/", ctx => {
       ctx.status = 201;
       ctx.type = "text/html; charset='utf-8'";
       ctx.body = this.render(join(this.workspace, this.entry()));
@@ -65,7 +63,7 @@ export default class Server extends Markdown {
   private globalCssServer() {
     if (this.userCfg["useStyle"]) {
       for (const css in this.globalCfg["defaultCss"]) {
-        this.globalCssRouter.get(css, (ctx) => {
+        this.globalCssRouter.get(css, ctx => {
           let file = readFileSync(
             join(this.BeeRoot, this.globalCfg["defaultCss"][css])
           );
@@ -82,8 +80,8 @@ export default class Server extends Markdown {
   private docsServer() {
     if (this.docs.length <= 0) return false;
 
-    this.docs.forEach((doc) => {
-      this.router.get(`/docs/${doc}`, (ctx) => {
+    this.docs.forEach(doc => {
+      this.router.get(`/docs/${doc}`, ctx => {
         let mdFile: string = this.render(
           join(this.workspace, this.globalCfg["defaultDocs"], doc)
         );
@@ -94,11 +92,10 @@ export default class Server extends Markdown {
     });
   }
 
-
   /* ==================================================
    * 其它: 工具函数
    * ================================================== */
-  
+
   // markdown文档渲染函数
   protected render(mdFile: string): string {
     let file: Buffer = readFileSync(mdFile);
@@ -114,11 +111,10 @@ export default class Server extends Markdown {
     return this.md.render(file.toString());
   }
 
-
   // 启动
   listen(port?: number) {
     let Port: number = port ?? this.port();
-    if(Port) this.userCfg["port"] = Port;
+    if (Port) this.userCfg["port"] = Port;
     this.app.listen(Port, () => {
       console.log(`🐝 STARTTING...\nOPEN: http://localhost:${Port}/`);
     });
