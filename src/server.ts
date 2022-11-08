@@ -27,6 +27,7 @@ export default class Server extends Markdown {
     this.globalCssServer();
     this.docsServer();
     this.main();
+    this.route();
   }
 
   /* ==================================================
@@ -90,6 +91,23 @@ export default class Server extends Markdown {
         ctx.body = mdFile.toString();
       });
     });
+  }
+
+  // 用户自定义映射
+  private route() {
+    // 判断用户映射是否存在
+    if ( this.userCfg["routes"] == "{}") return false;
+
+    for (const route in this.userCfg["routes"]) {
+      this.router.get(route, ctx => {
+        let file = readFileSync(
+          join(this.workspace, this.userCfg["routes"][route])
+        )
+        ctx.status = 200
+        ctx.type = "textcss"
+        ctx.body = file.toString()
+      })
+    }
   }
 
   /* ==================================================
