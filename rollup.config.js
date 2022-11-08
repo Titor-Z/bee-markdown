@@ -26,5 +26,8 @@ exports.default = {
     "buffer",
     "path/posix",
     "chalk",
+    "yargs",
+    "highlight.js",
+    "markdown-it"
   ],
 };
