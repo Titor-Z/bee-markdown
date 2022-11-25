@@ -1,6 +1,7 @@
 import yargs, { Argv } from "yargs";
 import { hideBin } from "yargs/helpers";
 import Config from "./config";
+import Generator from "./generator";
 import Server from "./server";
 
 export default class Command extends Config {
@@ -15,7 +16,7 @@ export default class Command extends Config {
     this.commander
       .command(
         "start [port]",
-        "Start the BeeMarkdown Server",
+        "开始使用 BeeMarkdown 编辑器",
         yargs => {
           return yargs.positional("port", {
             describe: "Set BeeMarkdown Server Port...",
@@ -26,8 +27,8 @@ export default class Command extends Config {
           new Server().listen(argv.port);
         }
       )
-      .command("init", "初始化你的项目", () => {
-        return "初始化";
+      .command("init", "为当前项目初始化 BeeMarkdown 所需工作", () => {
+        new Generator()
       })
       .parse();
   }

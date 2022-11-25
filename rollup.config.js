@@ -26,5 +26,6 @@ exports.default = {
     "buffer",
     "path/posix",
     "chalk",
+    "path"
   ],
 };

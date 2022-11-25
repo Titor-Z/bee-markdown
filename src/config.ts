@@ -2,6 +2,9 @@ import { existsSync, readFileSync } from "fs";
 import { join } from "path/posix";
 import { cwd } from "process";
 
+/**
+ * @typeParam UserConfigType - 用户自定配置项
+*/
 export type UserConfigType = {
   routes?: {};
   useStyle?: boolean;
@@ -9,6 +12,9 @@ export type UserConfigType = {
   entry?: string;
 };
 
+/**
+ * @typeParam GlobalConfigType - 全局系统内置配置项
+ */
 export type GlobalConfigType = {
   defaultCss: {};
   defaultEntry: string;
@@ -17,6 +23,10 @@ export type GlobalConfigType = {
   defaultDocs: string;
 };
 
+/**
+ * Application system config
+ * @class
+ */
 export default class Config {
   protected BeeRoot: string = join(__dirname, "../");
   protected workspace: string;
@@ -25,6 +35,9 @@ export default class Config {
   protected globalCfg: GlobalConfigType;
   protected userCfg: UserConfigType;
 
+  /**
+   * @constructor
+   */
   constructor() {
     this.workspace = join(cwd());
     // this.BeeRoot = join(
@@ -42,7 +55,7 @@ export default class Config {
 
   /**
    * 获取 BeeMarkdown全局配置
-   * @returns GlobalConfigType
+   * @returns {GlobalConfigType}  全局配置Map 或 空Map
    */
   getGlobalConfig(): GlobalConfigType {
     let configContent = readFileSync(join(this.BeeRoot, this.globalFileName));
@@ -52,7 +65,7 @@ export default class Config {
   /**
    * 获取 用户项目中的自定义配置
    * 如果没有配置文件则返回空{}
-   * @returns UserConfigType || {}
+   * @returns {UserConfigType | {}} 用户配置Map 或 空Map
    */
   getUserConfig(): UserConfigType {
     if (existsSync(join(this.workspace, this.globalCfg["configFile"]))) {

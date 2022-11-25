@@ -7,8 +7,8 @@
     "md": "./bin/bin.js"
   },
   "scripts": {
-    "start": "esno src/mod.ts",
-    ":dev": "esno watch src/cli.ts *",
+    "start": "esno src/command",
+    "doc:": "yarn typedoc",
     "build": "rollup -c"
   },
   "devDependencies": {
@@ -33,6 +33,7 @@
     "koa": "^2.13.4",
     "koa-router": "^12.0.0",
     "markdown-it": "^13.0.1",
+    "postcss": "^8.4.19",
     "yargs": "^17.6.2"
   }
 }

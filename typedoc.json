@@ -1,9 +1,6 @@
 {
   "entryPoints": [
-    "src/command.ts",
-    "src/server.ts",
-    "src/config.ts",
-    "src/markdown.ts"
+    "src/*"
   ],
   "out": "documents"
 }

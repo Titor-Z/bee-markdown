@@ -10,7 +10,7 @@
     // "noUnusedParameters": true, 
     // "noFallthroughCasesInSwitch": true, 
     // "skipLibCheck": true,
-    // "moduleResolution": "NodeNext",
+    "moduleResolution": "NodeNext",
     "sourceMap": true
   }
 }

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="http://localhost:80/swiss.css">
+<link rel="stylesheet" href="/css/swiss.css">
 
 
 # BeeMarkdown
