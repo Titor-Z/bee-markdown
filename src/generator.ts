@@ -35,8 +35,8 @@ export default class Generator extends Config {
           port: this.globalCfg["defaultPort"],
         },
         null,
-        2
-      )
+        2,
+      ),
     );
 
     if (res) this.logger(filename);
@@ -64,7 +64,7 @@ export default class Generator extends Config {
    */
   private touchFile(
     path: string,
-    data: any
+    data: any,
   ): string | false {
     const filePath = join(this.workspace, path);
 
@@ -74,8 +74,9 @@ export default class Generator extends Config {
     }
 
     try {
-      if (!existsSync(dirname(filePath)))
+      if (!existsSync(dirname(filePath))) {
         mkdirSync(dirname(filePath)); //创建目录
+      }
       writeFileSync(filePath, data); //写入
 
       return path;

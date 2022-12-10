@@ -17,18 +17,18 @@ export default class Command extends Config {
       .command(
         "start [port]",
         "开始使用 BeeMarkdown 编辑器",
-        yargs => {
+        (yargs) => {
           return yargs.positional("port", {
             describe: "Set BeeMarkdown Server Port...",
             default: this.port(),
           });
         },
-        argv => {
+        (argv) => {
           new Server().listen(argv.port);
-        }
+        },
       )
       .command("init", "为当前项目初始化 BeeMarkdown 所需工作", () => {
-        new Generator()
+        new Generator();
       })
       .parse();
   }

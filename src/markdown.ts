@@ -19,9 +19,11 @@ export default class Markdown extends Config {
         } catch (__) {}
       }
 
-      return `<pre class="hljs">${this.md.utils.escapeHtml(
-        str
-      )}<code></code></pre>`;
+      return `<pre class="hljs">${
+        this.md.utils.escapeHtml(
+          str,
+        )
+      }<code></code></pre>`;
     },
   }).enable(["link"]);
 

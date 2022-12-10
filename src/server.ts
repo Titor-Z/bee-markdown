@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFile, readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync } from "fs";
 import Application, { Context, Next } from "koa";
 import Router from "koa-router";
 import { join } from "path";
@@ -28,7 +28,7 @@ export default class Server extends Markdown {
     this.docsServer();
     this.main();
     this.route();
-    this.client()
+    this.client();
   }
 
   /* ==================================================
@@ -39,7 +39,7 @@ export default class Server extends Markdown {
   private entry() {
     return (
       this.userCfg["entry"] ??
-      this.globalCfg["defaultEntry"]
+        this.globalCfg["defaultEntry"]
     );
   }
 
@@ -48,7 +48,7 @@ export default class Server extends Markdown {
     // 检查本地是否存在全局的docs文件夹
     const docsPath = join(
       this.workspace,
-      this.globalCfg["defaultDocs"]
+      this.globalCfg["defaultDocs"],
     );
     if (!existsSync(docsPath)) return [];
     return readdirSync(docsPath);
@@ -60,39 +60,38 @@ export default class Server extends Markdown {
 
   // 主入口映射
   private main() {
-    this.router.get("/", ctx => {
+    this.router.get("/", (ctx) => {
       ctx.status = 200;
       ctx.type = "text/html; charset='utf-8'";
       ctx.body = this.render(
-        join(this.workspace, this.entry())
+        join(this.workspace, this.entry()),
       );
     });
   }
 
-
   // 客户端模块入口
   private client() {
-    this.router.get("/client.js", ctx => {
+    this.router.get("/client.js", (ctx) => {
       ctx.type = "application/javascript";
       ctx.status = 200;
       ctx.body = `import "./../node_modules/bee-markdown-theme/dist/dist.css";`
-      .toString().replace(/\n/g,'');
-    })
+        .toString()
+        .replace(/\n/g, "");
+    });
   }
-
 
   // 子文档映射
   private docsServer() {
     if (this.docs.length <= 0) return false;
 
-    this.docs.forEach(doc => {
-      this.router.get(`/docs/${doc}`, ctx => {
+    this.docs.forEach((doc) => {
+      this.router.get(`/docs/${doc}`, (ctx) => {
         let mdFile: string = this.render(
           join(
             this.workspace,
             this.globalCfg["defaultDocs"],
-            doc
-          )
+            doc,
+          ),
         );
         ctx.status = 201;
         ctx.type = "text/html; charset='utf-8'";
@@ -107,12 +106,12 @@ export default class Server extends Markdown {
     if (this.userCfg["routes"] == "{}") return false;
 
     for (const route in this.userCfg["routes"]) {
-      this.router.get(route, ctx => {
+      this.router.get(route, (ctx) => {
         let file = readFileSync(
           join(
             this.workspace,
-            this.userCfg["routes"][route]
-          )
+            this.userCfg["routes"][route],
+          ),
         );
         ctx.status = 200;
         ctx.type = "text/css";
@@ -122,13 +121,18 @@ export default class Server extends Markdown {
   }
 
   // Bee 加载引擎
-  async program(ctx: Context, next: Next) {
-    await next()
-    const { url } = ctx
+  private async program(ctx: Context, next: Next) {
+    await next();
+    const { url } = ctx;
 
     // 系统css映射
-    if( url.endsWith(".css") ) {
-      const css = readFileSync(join(url.slice(1))).toString().replace(/\n/g, "")
+    if (url.endsWith(".css")) {
+      const css = readFileSync(
+        join(__dirname, "../", url.slice(1)),
+      )
+        .toString()
+        .replace(/\n/g, "");
+
       ctx.type = "application/javascript";
       ctx.status = 200;
       ctx.body = `
@@ -136,7 +140,7 @@ const head = document.querySelector("head");
 const style = document.createElement("style");
 style.setAttribute("type", "text/css");
 style.innerText = '${css}';
-head.appendChild(style)`
+head.appendChild(style)`;
     }
   }
 
@@ -178,16 +182,21 @@ head.appendChild(style)`
         ${this.md.render(file.toString())}
         </body>
         </html>
-        `
+        `;
     }
   }
 
   // Package Third Modules Requred Method.
   protected rewriteModule(content: string) {
-    return content.replace(/ from ['|"]([^'"]+)['|"]/g, (s0,s1) => {
-      if (s1[0] !=='.' && s1[1] !== '/') return ` from "/@m/${s1}"`
-      return s0
-    })
+    return content.replace(
+      / from ['|"]([^'"]+)['|"]/g,
+      (s0, s1) => {
+        if (s1[0] !== "." && s1[1] !== "/") {
+          return ` from "/@m/${s1}"`;
+        }
+        return s0;
+      },
+    );
   }
 
   // 启动
@@ -196,7 +205,7 @@ head.appendChild(style)`
     if (Port) this.userCfg["port"] = Port;
     this.app.listen(Port, () => {
       console.log(
-        `🐝 STARTTING...\nOPEN: http://localhost:${Port}/`
+        `🐝 STARTTING...\nOPEN: http://localhost:${Port}/`,
       );
     });
   }
