@@ -1,5 +1,5 @@
-import { existsSync, readdirSync, readFileSync } from "fs";
-import Application from "koa";
+import { existsSync, readdirSync, readFile, readFileSync } from "fs";
+import Application, { Context, Next } from "koa";
 import Router from "koa-router";
 import { join } from "path";
 import Markdown from "./markdown";
@@ -19,15 +19,16 @@ export default class Server extends Markdown {
     this.docs = this.initDocs();
 
     this.app
+      .use(this.program)
       .use(this.router.routes())
       .use(this.router.allowedMethods())
       .use(this.globalCssRouter.routes())
       .use(this.globalCssRouter.allowedMethods());
 
-    this.globalCssServer();
     this.docsServer();
     this.main();
     this.route();
+    this.client()
   }
 
   /* ==================================================
@@ -68,19 +69,17 @@ export default class Server extends Markdown {
     });
   }
 
-  // 系统CSS映射
-  private globalCssServer() {
-    return this.globalCssRouter.get("/default.css", ctx => {
+
+  // 客户端模块入口
+  private client() {
+    this.router.get("/client.js", ctx => {
+      ctx.type = "application/javascript";
       ctx.status = 200;
-      ctx.type = "text/css";
-      ctx.body = readFileSync(
-        join(
-          this.BeeRoot,
-          "node_modules/@titor-z/markdown-theme/dist/dist.css"
-        )
-      ).toString();
-    });
+      ctx.body = `import "./../node_modules/bee-markdown-theme/dist/dist.css";`
+      .toString().replace(/\n/g,'');
+    })
   }
+
 
   // 子文档映射
   private docsServer() {
@@ -122,6 +121,25 @@ export default class Server extends Markdown {
     }
   }
 
+  // Bee 加载引擎
+  async program(ctx: Context, next: Next) {
+    await next()
+    const { url } = ctx
+
+    // 系统css映射
+    if( url.endsWith(".css") ) {
+      const css = readFileSync(join(url.slice(1))).toString().replace(/\n/g, "")
+      ctx.type = "application/javascript";
+      ctx.status = 200;
+      ctx.body = `
+const head = document.querySelector("head");
+const style = document.createElement("style");
+style.setAttribute("type", "text/css");
+style.innerText = '${css}';
+head.appendChild(style)`
+    }
+  }
+
   /* ==================================================
    * 其它: 工具函数
    * ================================================== */
@@ -138,15 +156,15 @@ export default class Server extends Markdown {
           <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
             <meta charset="utf-8">
-            <link rel="stylesheet" href="/default.css">
           </head>
           <body>
             <main class="container">
               ${this.md.render(file.toString())}
             </main>
+
+            <script type="module" src="client.js"></script>
           </body>
           </html>`;
-        break;
 
       default:
         return `
@@ -161,8 +179,15 @@ export default class Server extends Markdown {
         </body>
         </html>
         `
-        break;
     }
+  }
+
+  // Package Third Modules Requred Method.
+  protected rewriteModule(content: string) {
+    return content.replace(/ from ['|"]([^'"]+)['|"]/g, (s0,s1) => {
+      if (s1[0] !=='.' && s1[1] !== '/') return ` from "/@m/${s1}"`
+      return s0
+    })
   }
 
   // 启动

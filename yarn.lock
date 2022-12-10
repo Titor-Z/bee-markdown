@@ -285,13 +285,6 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@titor-z/markdown-theme@^1.1.0":
-  version "1.1.0"
-  resolved "https://npm.pkg.github.com/download/@titor-z/markdown-theme/1.1.0/b00b49a6d8bafd52eb84b3d420539bbf2f50af3e#b00b49a6d8bafd52eb84b3d420539bbf2f50af3e"
-  integrity sha512-xh3bbf05caJ+7/TaLQCpRfjJnGk+ZWdzWVNStOVbZYx1IgKEGVxmaHAn5oawB2M4kH83jRLDi8dzfLhCTJTyfw==
-  dependencies:
-    gulp-rename "^2.0.0"
-
 "@types/accepts@*":
   version "1.3.5"
   resolved "https://mirrors.cloud.tencent.com/npm/@types%2faccepts/-/accepts-1.3.5.tgz#c34bec115cfc746e04fe5a059df4ce7e7b391575"
@@ -956,6 +949,13 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://mirrors.cloud.tencent.com/npm/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+bee-markdown-theme@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.npmmirror.com/bee-markdown-theme/-/bee-markdown-theme-1.1.1.tgz#858d1482aeacd77076ecbcd436443b78f82a956a"
+  integrity sha512-z6Vf9AL8ezvFSKNaojYFitnAd5F56Ud5ZwSeqH/0znVA3gbWiEgkNNhd7AkZkGaWD6gSTfI01Aqw71qjgcsrRg==
+  dependencies:
+    gulp-rename "^2.0.0"
 
 brace-expansion@^2.0.1:
   version "2.0.1"
